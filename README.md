@@ -25,11 +25,11 @@ python simple_extractor.py --model-restore ./exp-schp-201908261155-lip.pth --inp
 
 python simple_extractor.py --model-restore ./exp-schp-201908261155-lip.pth --input-dir ../dataset/market1501/query --output-dir ../dataset/market1501/query-mask
 
-python simple_extractor.py --dataset atr --model-restore ./exp-schp-201908261155-lip.pth --input-dir ../dataset/MSMT17/bounding_box_test --output-dir ../dataset/MSMT17/bounding_box_test-mask
+python simple_extractor.py --model-restore ./exp-schp-201908261155-lip.pth --input-dir ../dataset/MSMT17/bounding_box_test --output-dir ../dataset/MSMT17/bounding_box_test-mask
 
-python simple_extractor.py --dataset atr --model-restore ./exp-schp-201908261155-lip.pth --input-dir ../dataset/MSMT17/query --output-dir ../dataset/MSMT17/query-mask
+python simple_extractor.py --model-restore ./exp-schp-201908261155-lip.pth --input-dir ../dataset/MSMT17/query --output-dir ../dataset/MSMT17/query-mask
 
-python simple_extractor.py --dataset atr --model-restore ./exp-schp-201908261155-lip.pth --input-dir ../dataset/MSMT17/bounding_box_train --output-dir ../dataset/MSMT17/bounding_box_train-mask
+python simple_extractor.py --model-restore ./exp-schp-201908261155-lip.pth --input-dir ../dataset/MSMT17/bounding_box_train --output-dir ../dataset/MSMT17/bounding_box_train-mask
 ```
 
 ### TRAIN
