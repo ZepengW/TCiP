@@ -1,0 +1,454 @@
+###INFO###[2022-09-15 14:54:26]=> Config File:
+###INFO###[2022-09-15 14:54:26]{
+    "gpu": [
+        0
+    ],
+    "eval_interval": 5,
+    "model-manager": {
+        "network_name": "TCiP",
+        "network_inputs": [
+            "img",
+            "camera_id",
+            "pid",
+            "unique_clothes_id",
+            "sem"
+        ],
+        "save_name": "TCiP-LTCC",
+        "solver": {
+            "optimizer": "SGD",
+            "base_lr": 0.0001,
+            "weight_decay": 0.0001,
+            "warmup_epochs": 5,
+            "max_epoch": 120
+        },
+        "loss": {
+            "use_loss": [
+                "triplet",
+                "cross_entropy"
+            ],
+            "wrt": {
+                "weight": 1.0,
+                "except_input": "feature",
+                "list_weight": [
+                    0.5,
+                    0.125,
+                    0.125,
+                    0.125,
+                    0.125,
+                    0.125
+                ]
+            },
+            "xent_label_smooth": {
+                "weight": 1.0,
+                "params_initial": [
+                    "num_classes"
+                ],
+                "except_input": "score",
+                "list_weight": [
+                    0.5,
+                    0.125,
+                    0.125,
+                    0.125,
+                    0.125,
+                    0.125
+                ]
+            },
+            "triplet": {
+                "weight": 1.0,
+                "except_input": "feature",
+                "list_weight": [
+                    0.4,
+                    0.4,
+                    0.1
+                ]
+            },
+            "cross_entropy": {
+                "weight": 1.0,
+                "except_input": "score",
+                "list_weight": [
+                    0.4,
+                    0.4,
+                    0.1
+                ]
+            }
+        },
+        "load_path": "./output/TCiP-LTCC_120.pkl",
+        "network-params": {
+            "PRETRAIN_CHOICE": "imagenet",
+            "num_clothes": 256,
+            "PRETRAIN_PATH": "./pretrained/jx_vit_base_p16_224-80ecf9dd.pth",
+            "METRIC_LOSS_TYPE": "triplet",
+            "IF_LABELSMOOTH": "off",
+            "IF_WITH_CENTER": "no",
+            "NAME": "transformer",
+            "NO_MARGIN": true,
+            "TRANSFORMER_TYPE": "vit_base_patch16_224_TransReID",
+            "STRIDE_SIZE": [
+                12,
+                12
+            ],
+            "SIE_CAMERA": true,
+            "SIE_COE": 3.0,
+            "JPM": true,
+            "RE_ARRANGE": true,
+            "CAMERA_NUM": 12,
+            "SIZE_INPUT": [
+                256,
+                128
+            ],
+            "use_mask": true,
+            "feat_weight": [
+                1.0,
+                1.0,
+                1.0
+            ],
+            "loss_weight": [
+                1.0,
+                1.0,
+                1.0,
+                1.0,
+                1000.0
+            ]
+        },
+        "epoch": 120,
+        "use_model_loss": true,
+        "re_ranking": false
+    },
+    "dataset": {
+        "dataset_name": "ltcc",
+        "dataset_path": "../dataset/LTCC_ReID",
+        "image_size": [
+            256,
+            128
+        ],
+        "num_workers": 8,
+        "batch_size_train": 64,
+        "batch_size_test": 128,
+        "num_instance": 8,
+        "type": "image",
+        "reading_method_train": {
+            "name": "get_img_sem",
+            "image_size": [
+                256,
+                128
+            ],
+            "mean": [
+                0.5,
+                0.5,
+                0.5
+            ],
+            "std": [
+                0.5,
+                0.5,
+                0.5
+            ],
+            "mode": "train"
+        },
+        "reading_method_test": {
+            "name": "get_img_sem",
+            "image_size": [
+                256,
+                128
+            ],
+            "mean": [
+                0.5,
+                0.5,
+                0.5
+            ],
+            "std": [
+                0.5,
+                0.5,
+                0.5
+            ],
+            "mode": "test"
+        },
+        "num_per_clothes": 2
+    },
+    "vis_params": {
+        "vis": false,
+        "vis_interval": 20,
+        "vis_img_func": "list_false",
+        "vis_img_num": 100
+    },
+    "mode": "train",
+    "task-name": "TCiP-LTCC-TEST",
+    "vis": true,
+    "vis_interval": 120
+}
+###INFO###[2022-09-15 14:54:26]using gpu: id is 0 name is NVIDIA GeForce RTX 3090
+###INFO###[2022-09-15 14:54:26]=> DataSet Info:
+###INFO###[2022-09-15 14:54:26]----dataset:ltcc
+###INFO###[2022-09-15 14:54:26]----path:../dataset/LTCC_ReID
+###INFO###[2022-09-15 14:54:26]----img_size:[256, 128]
+###INFO###[2022-09-15 14:54:26]----batch_size_train:64
+###INFO###[2022-09-15 14:54:26]----num_instance:8
+###INFO###[2022-09-15 14:54:26]----batch_size_test:128
+###INFO###[2022-09-15 14:54:26]----transform method:None
+###INFO###[2022-09-15 14:54:26]----num_workers:8
+###INFO###[2022-09-15 14:54:26]=> LTCC ReID loaded
+###INFO###[2022-09-15 14:54:26]Dataset statistics:
+###INFO###[2022-09-15 14:54:26]  ------------------------------
+###INFO###[2022-09-15 14:54:26]  subset   | # ids | # imgs | # Avg Clothes Num
+###INFO###[2022-09-15 14:54:26]  ------------------------------
+###INFO###[2022-09-15 14:54:26]  train    |    77 |    9576| 
+###INFO###[2022-09-15 14:54:26]  query    |    75 |     493| 
+###INFO###[2022-09-15 14:54:26]  gallery  |    75 |    7050| 
+###INFO###[2022-09-15 14:54:26]  ------------------------------
+###INFO###[2022-09-15 14:54:28]Loss Weight of Model
+###INFO###[2022-09-15 14:54:28]   xent_total  |   trip_total  |    xent_bio   |    trip_bio   |   xent_clos   
+###INFO###[2022-09-15 14:54:28]      1.0      |      1.0      |      1.0      |      1.0      |     1000.0    
+###INFO###[2022-09-15 14:54:32]loading model: ./output/TCiP-LTCC_120.pkl
+###INFO###[2022-09-15 14:54:32]load finish!
+###INFO###[2022-09-15 14:54:32]=> Initial Optimizer:SGD
+###INFO###[2022-09-15 14:54:32]----base base_lr:0.0001
+###INFO###[2022-09-15 14:54:32]----base weight_decay:0.0001
+###INFO###[2022-09-15 14:54:32]=> Initial LR Scheduler:cosine
+###INFO###[2022-09-15 14:54:32]----t_initial:120
+###INFO###[2022-09-15 14:54:32]----lr_min:2.0000000000000002e-07
+###INFO###[2022-09-15 14:54:32]----t_mul:1.0
+###INFO###[2022-09-15 14:54:32]----decay_rate:0.1
+###INFO###[2022-09-15 14:54:32]----warmup_lr_init:1.0000000000000002e-06
+###INFO###[2022-09-15 14:54:32]----warmup_t:5
+###INFO###[2022-09-15 14:54:32]----cycle_limit:1
+###INFO###[2022-09-15 14:54:32]----t_in_epochs:True
+###INFO###[2022-09-15 14:54:32]----noise_range_t:None
+###INFO###[2022-09-15 14:54:32]----noise_pct:0.67
+###INFO###[2022-09-15 14:54:32]----noise_std:1.0
+###INFO###[2022-09-15 14:54:32]----noise_seed:42
+###INFO###[2022-09-15 14:54:32]loading train data
+###INFO###[2022-09-15 14:54:32]load train data finish
+###INFO###[2022-09-15 14:54:32]loading test data
+###INFO###[2022-09-15 14:54:32]load test data finish
+###INFO###[2022-09-15 14:54:32]prepare to train from epoch[0] to epoch[120]
+###INFO###[2022-09-15 14:54:32]====================[Training...] Epoch:001 Base Lr:2.08e-05====================
+###INFO###[2022-09-15 14:54:46]=> Config File:
+###INFO###[2022-09-15 14:54:46]{
+    "gpu": [
+        0
+    ],
+    "eval_interval": 5,
+    "model-manager": {
+        "network_name": "TCiP",
+        "network_inputs": [
+            "img",
+            "camera_id",
+            "pid",
+            "unique_clothes_id",
+            "sem"
+        ],
+        "save_name": "TCiP-LTCC",
+        "solver": {
+            "optimizer": "SGD",
+            "base_lr": 0.0001,
+            "weight_decay": 0.0001,
+            "warmup_epochs": 5,
+            "max_epoch": 120
+        },
+        "loss": {
+            "use_loss": [
+                "triplet",
+                "cross_entropy"
+            ],
+            "wrt": {
+                "weight": 1.0,
+                "except_input": "feature",
+                "list_weight": [
+                    0.5,
+                    0.125,
+                    0.125,
+                    0.125,
+                    0.125,
+                    0.125
+                ]
+            },
+            "xent_label_smooth": {
+                "weight": 1.0,
+                "params_initial": [
+                    "num_classes"
+                ],
+                "except_input": "score",
+                "list_weight": [
+                    0.5,
+                    0.125,
+                    0.125,
+                    0.125,
+                    0.125,
+                    0.125
+                ]
+            },
+            "triplet": {
+                "weight": 1.0,
+                "except_input": "feature",
+                "list_weight": [
+                    0.4,
+                    0.4,
+                    0.1
+                ]
+            },
+            "cross_entropy": {
+                "weight": 1.0,
+                "except_input": "score",
+                "list_weight": [
+                    0.4,
+                    0.4,
+                    0.1
+                ]
+            }
+        },
+        "load_path": "./output/TCiP-LTCC_120.pkl",
+        "network-params": {
+            "PRETRAIN_CHOICE": "imagenet",
+            "num_clothes": 256,
+            "PRETRAIN_PATH": "./pretrained/jx_vit_base_p16_224-80ecf9dd.pth",
+            "METRIC_LOSS_TYPE": "triplet",
+            "IF_LABELSMOOTH": "off",
+            "IF_WITH_CENTER": "no",
+            "NAME": "transformer",
+            "NO_MARGIN": true,
+            "TRANSFORMER_TYPE": "vit_base_patch16_224_TransReID",
+            "STRIDE_SIZE": [
+                12,
+                12
+            ],
+            "SIE_CAMERA": true,
+            "SIE_COE": 3.0,
+            "JPM": true,
+            "RE_ARRANGE": true,
+            "CAMERA_NUM": 12,
+            "SIZE_INPUT": [
+                256,
+                128
+            ],
+            "use_mask": true,
+            "feat_weight": [
+                1.0,
+                1.0,
+                1.0
+            ],
+            "loss_weight": [
+                1.0,
+                1.0,
+                1.0,
+                1.0,
+                1000.0
+            ]
+        },
+        "epoch": 120,
+        "use_model_loss": true,
+        "re_ranking": false
+    },
+    "dataset": {
+        "dataset_name": "ltcc",
+        "dataset_path": "../dataset/LTCC_ReID",
+        "image_size": [
+            256,
+            128
+        ],
+        "num_workers": 8,
+        "batch_size_train": 64,
+        "batch_size_test": 128,
+        "num_instance": 8,
+        "type": "image",
+        "reading_method_train": {
+            "name": "get_img_sem",
+            "image_size": [
+                256,
+                128
+            ],
+            "mean": [
+                0.5,
+                0.5,
+                0.5
+            ],
+            "std": [
+                0.5,
+                0.5,
+                0.5
+            ],
+            "mode": "train"
+        },
+        "reading_method_test": {
+            "name": "get_img_sem",
+            "image_size": [
+                256,
+                128
+            ],
+            "mean": [
+                0.5,
+                0.5,
+                0.5
+            ],
+            "std": [
+                0.5,
+                0.5,
+                0.5
+            ],
+            "mode": "test"
+        },
+        "num_per_clothes": 2
+    },
+    "vis_params": {
+        "vis": false,
+        "vis_interval": 20,
+        "vis_img_func": "list_false",
+        "vis_img_num": 100
+    },
+    "mode": "test",
+    "task-name": "TCiP-LTCC-TEST",
+    "vis": true,
+    "vis_interval": 120
+}
+###INFO###[2022-09-15 14:54:46]using gpu: id is 0 name is NVIDIA GeForce RTX 3090
+###INFO###[2022-09-15 14:54:46]=> DataSet Info:
+###INFO###[2022-09-15 14:54:46]----dataset:ltcc
+###INFO###[2022-09-15 14:54:46]----path:../dataset/LTCC_ReID
+###INFO###[2022-09-15 14:54:46]----img_size:[256, 128]
+###INFO###[2022-09-15 14:54:46]----batch_size_train:64
+###INFO###[2022-09-15 14:54:46]----num_instance:8
+###INFO###[2022-09-15 14:54:46]----batch_size_test:128
+###INFO###[2022-09-15 14:54:46]----transform method:None
+###INFO###[2022-09-15 14:54:46]----num_workers:8
+###INFO###[2022-09-15 14:54:46]=> LTCC ReID loaded
+###INFO###[2022-09-15 14:54:46]Dataset statistics:
+###INFO###[2022-09-15 14:54:46]  ------------------------------
+###INFO###[2022-09-15 14:54:46]  subset   | # ids | # imgs | # Avg Clothes Num
+###INFO###[2022-09-15 14:54:46]  ------------------------------
+###INFO###[2022-09-15 14:54:46]  train    |    77 |    9576| 
+###INFO###[2022-09-15 14:54:46]  query    |    75 |     493| 
+###INFO###[2022-09-15 14:54:46]  gallery  |    75 |    7050| 
+###INFO###[2022-09-15 14:54:46]  ------------------------------
+###INFO###[2022-09-15 14:54:48]Loss Weight of Model
+###INFO###[2022-09-15 14:54:48]   xent_total  |   trip_total  |    xent_bio   |    trip_bio   |   xent_clos   
+###INFO###[2022-09-15 14:54:48]      1.0      |      1.0      |      1.0      |      1.0      |     1000.0    
+###INFO###[2022-09-15 14:54:52]loading model: ./output/TCiP-LTCC_120.pkl
+###INFO###[2022-09-15 14:54:52]load finish!
+###INFO###[2022-09-15 14:54:52]=> Initial Optimizer:SGD
+###INFO###[2022-09-15 14:54:52]----base base_lr:0.0001
+###INFO###[2022-09-15 14:54:52]----base weight_decay:0.0001
+###INFO###[2022-09-15 14:54:52]=> Initial LR Scheduler:cosine
+###INFO###[2022-09-15 14:54:52]----t_initial:120
+###INFO###[2022-09-15 14:54:52]----lr_min:2.0000000000000002e-07
+###INFO###[2022-09-15 14:54:52]----t_mul:1.0
+###INFO###[2022-09-15 14:54:52]----decay_rate:0.1
+###INFO###[2022-09-15 14:54:52]----warmup_lr_init:1.0000000000000002e-06
+###INFO###[2022-09-15 14:54:52]----warmup_t:5
+###INFO###[2022-09-15 14:54:52]----cycle_limit:1
+###INFO###[2022-09-15 14:54:52]----t_in_epochs:True
+###INFO###[2022-09-15 14:54:52]----noise_range_t:None
+###INFO###[2022-09-15 14:54:52]----noise_pct:0.67
+###INFO###[2022-09-15 14:54:52]----noise_std:1.0
+###INFO###[2022-09-15 14:54:52]----noise_seed:42
+###INFO###[2022-09-15 14:54:52]loading test data
+###INFO###[2022-09-15 14:54:52]load test data finish
+###INFO###[2022-09-15 14:54:52]=============================[Testing...] Epoch:  0=============================
+###INFO###[2022-09-15 14:54:52]compute features of gallery samples
+###INFO###[2022-09-15 14:55:40]compute features of query samples
+###INFO###[2022-09-15 14:55:43]compute dist mat
+###INFO###[2022-09-15 14:55:43]compute rank list and score (standard)
+###INFO###[2022-09-15 14:55:48]test result (strandard):[rank-1:73.43%],[rank-3:78.90%],[rank-5:83.57%],[rank-10:88.03%]
+###INFO###[2022-09-15 14:55:48]test result (strandard):[mAP:41.93%],[mINP:11.47%]
+###INFO###[2022-09-15 14:55:48]compute rank list and score (CloChanging)
+###INFO###[2022-09-15 14:55:52]test result (CloChanging):[rank-1:38.52%],[rank-3:46.94%],[rank-5:53.83%],[rank-10:62.24%]
+###INFO###[2022-09-15 14:55:52]test result (CloChanging):[mAP:19.32%],[mINP:4.51%]
+###INFO###[2022-09-15 14:55:52]=================================[Test Finish]==================================
+###INFO###[2022-09-15 14:55:52]finish!
