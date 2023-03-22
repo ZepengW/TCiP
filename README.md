@@ -52,6 +52,18 @@ Download the trained models in following link:
 python main.py --cfg ./config/TCIP-ltcc-test.yaml
 ```
 
+### Cite
+```latex
+@inproceedings{wang2023transformer,
+  title={A Transformer-Based Cloth-Irrelevant Patches Feature Extracting Method for Long-Term Cloth-Changing Person Re-identification},
+  author={Wang, Zepeng and Jiang, Xinghao and Xu, Ke and Sun, Tanfeng},
+  booktitle={Advances in Computer Graphics: 39th Computer Graphics International Conference, CGI 2022, Virtual Event, September 12--16, 2022, Proceedings},
+  pages={278--289},
+  year={2023},
+  organization={Springer}
+}
+```
+
 ## Acknowledgement
 Our experiment framework code follows [https://github.com/oliverck/person_reid_develop](https://github.com/oliverck/person_reid_develop).
 
